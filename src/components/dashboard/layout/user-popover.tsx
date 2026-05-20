@@ -23,6 +23,7 @@ import { UserIcon } from '@phosphor-icons/react/dist/ssr/User';
 import { paths } from '@/paths';
 
 import { logout } from '@/redux/features/authSlice';
+import { CircularProgress } from '@mui/material';
 
 export interface UserPopoverProps {
   anchorEl: Element | null;
@@ -39,8 +40,8 @@ export function UserPopover({
 }: UserPopoverProps): React.JSX.Element {
   const router = useRouter();
 
-  const dispatch =
-    useDispatch();
+  const dispatch =useDispatch();
+  const [loading, setLoading] = React.useState(false);
 
   /* ==============================
      REDUX USER
@@ -58,25 +59,25 @@ export function UserPopover({
      LOGOUT
   ============================== */
 
-  const handleSignOut =
-    React.useCallback(
-      async (): Promise<void> => {
-        try {
-          dispatch(logout());
+const handleSignOut = React.useCallback(async (): Promise<void> => {
+  try {
+    setLoading(true);
 
-          router.push('/auth/sing-in');
+    // simulate delay or wait for logout completion
+    await dispatch(logout());
 
-          onClose();
-        } catch (error) {
-          console.log(error);
-        }
-      },
-      [
-        dispatch,
-        router,
-        onClose,
-      ]
-    );
+    // optional small delay for smooth UX
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    router.push('/auth/sign-in');
+
+    onClose();
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setLoading(false);
+  }
+}, [dispatch, router, onClose]);
 
   return (
     <Popover
@@ -166,17 +167,17 @@ export function UserPopover({
         </MenuItem>
 
         {/* LOGOUT */}
-        <MenuItem
-          onClick={
-            handleSignOut
-          }
-        >
-          <ListItemIcon>
-            <SignOutIcon fontSize="var(--icon-fontSize-md)" />
-          </ListItemIcon>
+   <MenuItem onClick={handleSignOut} disabled={loading}>
+  <ListItemIcon>
+    {loading ? (
+      <CircularProgress size={18} />
+    ) : (
+      <SignOutIcon fontSize="var(--icon-fontSize-md)" />
+    )}
+  </ListItemIcon>
 
-          Sign out
-        </MenuItem>
+  {loading ? 'Signing out...' : 'Sign out'}
+</MenuItem>
       </MenuList>
     </Popover>
   );

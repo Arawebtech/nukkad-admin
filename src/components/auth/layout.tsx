@@ -28,10 +28,10 @@ export function Layout({ children }: LayoutProps): React.JSX.Element {
   prefetch={true}
 
            sx={{ display: 'inline-block', fontSize: 0 }}>
-            <DynamicLogo colorDark="light" colorLight="dark" height={32} width={122} />
+            <DynamicLogo colorDark="light" colorLight="dark" height={75} width={275} />
           </Box>
         </Box>
-        <Box sx={{ alignItems: 'center', display: 'flex', flex: '1 1 auto', justifyContent: 'center', p: 3 }}>
+        <Box sx={{ alignItems: 'flex-start', display: 'flex', flex: '1 1 auto', justifyContent: 'center', p: 3 }}>
           <Box sx={{ maxWidth: '450px', width: '100%' }}>{children}</Box>
         </Box>
       </Box>
