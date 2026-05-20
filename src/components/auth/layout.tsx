@@ -35,7 +35,7 @@ export function Layout({ children }: LayoutProps): React.JSX.Element {
           <Box sx={{ maxWidth: '450px', width: '100%' }}>{children}</Box>
         </Box>
       </Box>
-      <Box
+      {/* <Box
         sx={{
           alignItems: 'center',
           background: 'radial-gradient(50% 50% at 50% 50%, #122647 0%, #090E23 100%)',
@@ -44,9 +44,22 @@ export function Layout({ children }: LayoutProps): React.JSX.Element {
           justifyContent: 'center',
           p: 3,
         }}
-      >
+      > */}
+      <Box
+  sx={{
+    alignItems: "center",
+    backgroundImage: "url('/assets/loginpage.png')", // 👈 yaha image path
+    backgroundSize: "cover",
+    backgroundPosition: "right",
+    backgroundRepeat: "no-repeat",
+    color: "var(--mui-palette-common-white)",
+    display: { xs: "none", lg: "flex" },
+    justifyContent: "center",
+    p: 3,
+  }}
+>
         <Stack spacing={3}>
-          <Stack spacing={1}>
+          {/* <Stack spacing={1}>
       <Typography
   color="inherit"
   sx={{
@@ -76,7 +89,7 @@ export function Layout({ children }: LayoutProps): React.JSX.Element {
   Manage street play events, artists, performances, galleries, and services
   with a modern and powerful admin dashboard experience.
 </Typography>
-          </Stack>
+          </Stack> */}
           {/* <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <Box
               component="img"

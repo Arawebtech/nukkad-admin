@@ -70,10 +70,10 @@ function SideNavComponent(): React.JSX.Element {
         direction="row"
         alignItems="center"
         justifyContent="space-between"
-        sx={{
-          px: 3,
-          py: 3,
-        }}
+        // sx={{
+        //   px: 3,
+        //   py: 2,
+        // }}
       >
         <Box
           component={RouterLink}
@@ -87,7 +87,7 @@ function SideNavComponent(): React.JSX.Element {
             textDecoration: 'none',
           }}
         >
-          <Logo color="light" height={36} width={130} />
+          <Logo color="light" height={100} width={280} />
         </Box>
       </Stack>
 

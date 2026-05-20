@@ -59,7 +59,7 @@ export function MobileNav({ open, onClose }: MobileNavProps): React.JSX.Element 
     >
       <Stack spacing={2} sx={{ p: 3 }}>
         <Box component={RouterLink} href={paths.home} sx={{ display: 'inline-flex' }}>
-          <Logo color="light" height={32} width={122} />
+          <Logo color="light" height={40} width={122} />
         </Box>
         <Box
           sx={{
@@ -88,7 +88,7 @@ export function MobileNav({ open, onClose }: MobileNavProps): React.JSX.Element 
         {renderNavItems({ pathname, items: navItems,onClose })}
       </Box>
       <Divider sx={{ borderColor: 'var(--mui-palette-neutral-700)' }} />
-      <Stack spacing={2} sx={{ p: '12px' }}>
+      {/* <Stack spacing={2} sx={{ p: '12px' }}>
         <div>
           <Typography color="var(--mui-palette-neutral-100)" variant="subtitle2">
             Need more features?
@@ -116,7 +116,7 @@ export function MobileNav({ open, onClose }: MobileNavProps): React.JSX.Element 
         >
           Pro version
         </Button>
-      </Stack>
+      </Stack> */}
     </Drawer>
   );
 }
