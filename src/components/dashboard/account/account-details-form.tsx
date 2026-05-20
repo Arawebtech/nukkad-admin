@@ -163,7 +163,7 @@ const confirmPasswordUpdate = async () => {
 
     setSuccess(res.message || 'Password updated successfully');
 
-    // RESET FORM AFTER SUCCESS
+
     setPassword({
       email: '',
       oldPassword: '',

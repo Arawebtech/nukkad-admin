@@ -1,9 +1,9 @@
 {
-  "name": "nukkar-nattal",
+  "name": "nukkad-natak",
   "version": "4.1.0",
-  "author": "Nukkar",
+  "author": "Nukkad",
   "licence": "MIT",
-  "homepage": "https://devias.io",
+  "homepage": "https://admin.nukkadnatak.com",
   "private": false,
   "scripts": {
     "dev": "next dev",
