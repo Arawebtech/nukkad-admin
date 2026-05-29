@@ -2,6 +2,16 @@ import axios from "axios";
 
 import { store } from "@/redux/store";
 
+// const API = axios.create({
+//   baseURL:
+//     process.env.NEXT_PUBLIC_API_URL,
+
+//   headers: {
+//     "Content-Type":
+//       "application/json",
+//   },
+// });
+
 const API = axios.create({
   baseURL:
     process.env.NEXT_PUBLIC_API_URL,
@@ -10,6 +20,7 @@ const API = axios.create({
     "Content-Type":
       "application/json",
   },
+
 });
 
 /* ==============================

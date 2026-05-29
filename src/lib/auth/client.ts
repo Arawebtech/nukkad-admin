@@ -13,7 +13,7 @@ const user = {
   avatar: '/assets/avatar-3.png',
   firstName: 'Abhishek',
   lastName: '',
-  email: 'admin@gmail.com',
+  email: 'contact@nukkadnatak.com',
 } satisfies User;
 
 export interface SignUpParams {

@@ -112,13 +112,13 @@ const handleSignOut = React.useCallback(async (): Promise<void> => {
           variant="body2"
         >
           {admin?.email ||
-            'admin@gmail.com'}
+            'contact@nukkadnatak.com'}
         </Typography>
       </Box>
 
       <Divider />
 
-      {/* MENU */}
+
       <MenuList
         disablePadding
         sx={{
