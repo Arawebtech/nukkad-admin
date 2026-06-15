@@ -1,287 +1,747 @@
-'use client';
+// "use client";
 
-import * as React from 'react';
+// import * as React from "react";
+// import { useRouter } from "next/navigation";
 
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-import CircularProgress from '@mui/material/CircularProgress';
-import TextField from '@mui/material/TextField';
+// import {
+//   Alert,
+//   Avatar,
+//   Box,
+//   Button,
+//   Card,
+//   Chip,
+//   CircularProgress,
+//   Dialog,
+//   DialogActions,
+//   DialogContent,
+//   DialogTitle,
+//   IconButton,
+//   InputAdornment,
+//   Snackbar,
+//   Stack,
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableContainer,
+//   TableHead,
+//   TablePagination,
+//   TableRow,
+//   TextField,
+//   Typography,
+// } from "@mui/material";
 
-import ServicesTable from '@/components/dashboard/services/services-table';
+// import { PlusIcon } from "@phosphor-icons/react/dist/ssr/Plus";
+// import { Eye } from "@phosphor-icons/react/dist/ssr/Eye";
+// import { PencilSimple } from "@phosphor-icons/react/dist/ssr/PencilSimple";
+// import { Trash } from "@phosphor-icons/react/dist/ssr/Trash";
+// import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
+
+// import {
+//   deleteService,
+//   getAllServices,
+// } from "@/api/services.Api";
+
+// interface Service {
+//   _id: string;
+//   name: string;
+//   slug: string;
+//   active: boolean;
+
+//   heroBanner?: {
+//     image?: string;
+//   };
+
+//   createdAt: string;
+// }
+
+// export default function ServicesPage() {
+//   const router = useRouter();
+
+//   const [services, setServices] = React.useState<Service[]>([]);
+//   const [loading, setLoading] = React.useState(false);
+
+//   const [page, setPage] = React.useState(0);
+//   const [rowsPerPage, setRowsPerPage] =
+//     React.useState(10);
+
+//   const [total, setTotal] = React.useState(0);
+
+//   const [search, setSearch] =
+//     React.useState("");
+
+//   const [deleteId, setDeleteId] =
+//     React.useState<string | null>(null);
+
+//   const [snackbar, setSnackbar] =
+//     React.useState({
+//       open: false,
+//       message: "",
+//       severity: "success" as
+//         | "success"
+//         | "error",
+//     });
+
+//   const fetchServices = async () => {
+//     try {
+//       setLoading(true);
+
+//       const res = await getAllServices(
+//         page + 1,
+//         rowsPerPage,
+//         search
+//       );
+
+//       setServices(res.data || []);
+//       setTotal(
+//         res.pagination?.total || 0
+//       );
+//     } catch (error: any) {
+//       setSnackbar({
+//         open: true,
+//         message:
+//           error.message ||
+//           "Failed to fetch services",
+//         severity: "error",
+//       });
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   React.useEffect(() => {
+//     fetchServices();
+//   }, [page, rowsPerPage]);
+
+//   const handleSearch = () => {
+//     setPage(0);
+//     fetchServices();
+//   };
+
+//   const handleDelete = async () => {
+//     try {
+//       if (!deleteId) return;
+
+//       await deleteService(deleteId);
+
+//       setSnackbar({
+//         open: true,
+//         message:
+//           "Service deleted successfully",
+//         severity: "success",
+//       });
+
+//       setDeleteId(null);
+
+//       fetchServices();
+//     } catch (error: any) {
+//       setSnackbar({
+//         open: true,
+//         message:
+//           error.message ||
+//           "Failed to delete service",
+//         severity: "error",
+//       });
+//     }
+//   };
+
+//   return (
+//     <>
+//       <Card sx={{ p: 3 }}>
+//         <Stack
+//           direction={{
+//             xs: "column",
+//             md: "row",
+//           }}
+//           justifyContent="space-between"
+//           spacing={2}
+//           mb={3}
+//         >
+//           <Typography variant="h5">
+//             Services
+//           </Typography>
+
+//           <Button
+//             variant="contained"
+//             startIcon={<PlusIcon />}
+//             onClick={() =>
+//               router.push(
+//                 "/dashboard/services/add"
+//               )
+//             }
+//           >
+//             Add Service
+//           </Button>
+//         </Stack>
+
+//         <Stack
+//           direction={{
+//             xs: "column",
+//             md: "row",
+//           }}
+//           spacing={2}
+//           mb={3}
+//         >
+//           <TextField
+//             fullWidth
+//             size="small"
+//             placeholder="Search service..."
+//             value={search}
+//             onChange={(e) =>
+//               setSearch(e.target.value)
+//             }
+//             InputProps={{
+//               startAdornment: (
+//                 <InputAdornment position="start">
+//                   <MagnifyingGlass />
+//                 </InputAdornment>
+//               ),
+//             }}
+//           />
+
+//           <Button
+//             variant="outlined"
+//             onClick={handleSearch}
+//           >
+//             Search
+//           </Button>
+//         </Stack>
+
+//         <TableContainer>
+//           <Table>
+//             <TableHead>
+//               <TableRow>
+//                 <TableCell>
+//                   Image
+//                 </TableCell>
+
+//                 <TableCell>
+//                   Service Name
+//                 </TableCell>
+
+//                 <TableCell>
+//                   Slug
+//                 </TableCell>
+
+//                 <TableCell>
+//                   Status
+//                 </TableCell>
+
+//                 <TableCell>
+//                   Created
+//                 </TableCell>
+
+//                 <TableCell align="right">
+//                   Actions
+//                 </TableCell>
+//               </TableRow>
+//             </TableHead>
+
+//             <TableBody>
+//               {loading ? (
+//                 <TableRow>
+//                   <TableCell
+//                     colSpan={6}
+//                     align="center"
+//                   >
+//                     <CircularProgress />
+//                   </TableCell>
+//                 </TableRow>
+//               ) : services.length ===
+//                 0 ? (
+//                 <TableRow>
+//                   <TableCell
+//                     colSpan={6}
+//                     align="center"
+//                   >
+//                     No services found
+//                   </TableCell>
+//                 </TableRow>
+//               ) : (
+//                 services.map((service) => (
+//                   <TableRow
+//                     key={service._id}
+//                     hover
+//                   >
+//                     <TableCell>
+//                       <Avatar
+//                         src={
+//                           service.heroBanner
+//                             ?.image
+//                         }
+//                         variant="rounded"
+//                         sx={{
+//                           width: 60,
+//                           height: 60,
+//                         }}
+//                       />
+//                     </TableCell>
+
+//                     <TableCell>
+//                       {service.name}
+//                     </TableCell>
+
+//                     <TableCell>
+//                       {service.slug}
+//                     </TableCell>
+
+//                     <TableCell>
+//                       <Chip
+//                         label={
+//                           service.active
+//                             ? "Active"
+//                             : "Inactive"
+//                         }
+//                         color={
+//                           service.active
+//                             ? "success"
+//                             : "error"
+//                         }
+//                         size="small"
+//                       />
+//                     </TableCell>
+
+//                     <TableCell>
+//                       {new Date(
+//                         service.createdAt
+//                       ).toLocaleDateString()}
+//                     </TableCell>
+
+//                     <TableCell align="right">
+//                       <Stack
+//                         direction="row"
+//                         justifyContent="flex-end"
+//                         spacing={1}
+//                       >
+//                         <IconButton
+//                           color="primary"
+//                           onClick={() =>
+//                             router.push(
+//                               `/dashboard/services/view/${service._id}`
+//                             )
+//                           }
+//                         >
+//                           <Eye />
+//                         </IconButton>
+
+//                         <IconButton
+//                           color="warning"
+//                           onClick={() =>
+//                             router.push(
+//                               `/dashboard/services/edit/${service._id}`
+//                             )
+//                           }
+//                         >
+//                           <PencilSimple />
+//                         </IconButton>
+
+//                         <IconButton
+//                           color="error"
+//                           onClick={() =>
+//                             setDeleteId(
+//                               service._id
+//                             )
+//                           }
+//                         >
+//                           <Trash />
+//                         </IconButton>
+//                       </Stack>
+//                     </TableCell>
+//                   </TableRow>
+//                 ))
+//               )}
+//             </TableBody>
+//           </Table>
+//         </TableContainer>
+
+//         <TablePagination
+//           component="div"
+//           count={total}
+//           page={page}
+//           rowsPerPage={rowsPerPage}
+//           onPageChange={(
+//             _,
+//             newPage
+//           ) => setPage(newPage)}
+//           onRowsPerPageChange={(e) => {
+//             setRowsPerPage(
+//               Number(e.target.value)
+//             );
+//             setPage(0);
+//           }}
+//         />
+//       </Card>
+
+//       {/* Delete Dialog */}
+
+//       <Dialog
+//         open={Boolean(deleteId)}
+//         onClose={() =>
+//           setDeleteId(null)
+//         }
+//       >
+//         <DialogTitle>
+//           Delete Service
+//         </DialogTitle>
+
+//         <DialogContent>
+//           Are you sure you want to delete
+//           this service?
+//         </DialogContent>
+
+//         <DialogActions>
+//           <Button
+//             onClick={() =>
+//               setDeleteId(null)
+//             }
+//           >
+//             Cancel
+//           </Button>
+
+//           <Button
+//             color="error"
+//             variant="contained"
+//             onClick={handleDelete}
+//           >
+//             Delete
+//           </Button>
+//         </DialogActions>
+//       </Dialog>
+
+//       <Snackbar
+//         open={snackbar.open}
+//         autoHideDuration={3000}
+//         onClose={() =>
+//           setSnackbar((prev) => ({
+//             ...prev,
+//             open: false,
+//           }))
+//         }
+//       >
+//         <Alert
+//           severity={snackbar.severity}
+//         >
+//           {snackbar.message}
+//         </Alert>
+//       </Snackbar>
+//     </>
+//   );
+// }
+
+
+"use client";
+
+import * as React from "react";
+import { useRouter } from "next/navigation";
 
 import {
-  getAllServices,
-  createService,
-  updateService,
-  deleteService,
-} from '@/api/serviceApi';
+  Alert,
+  Avatar,
+  Box,
+  Button,
+  Card,
+  Chip,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  InputAdornment,
+  Snackbar,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TablePagination,
+  TableRow,
+  TextField,
+  Typography,
+} from "@mui/material";
 
-import { getCategories } from '@/api/categoryApi';
+import { PlusIcon } from "@phosphor-icons/react/dist/ssr/Plus";
+import { Eye } from "@phosphor-icons/react/dist/ssr/Eye";
+import { PencilSimple } from "@phosphor-icons/react/dist/ssr/PencilSimple";
+import { Trash } from "@phosphor-icons/react/dist/ssr/Trash";
+import { MagnifyingGlass } from "@phosphor-icons/react/dist/ssr/MagnifyingGlass";
 
-interface Category {
-  _id: string;
-  title: string;
-}
+import { deleteService, getAllServices } from "@/api/services.Api";
 
 interface Service {
   _id: string;
+  name: string;
+  slug: string;
+  active: boolean;
 
-  serviceNo: string;
-
-  title: string;
-
-  icon: string;
-
-  shortDesc: string;
-
-  desc: string;
-
-  mixed: {
-    title: string;
-    value: string;
-  }[];
-
-    status: "active" | "inactive"; // 👈 ADD THIS
-
-
-  image?: {
-    url?: string;
+  // thumbnail is the dedicated listing image; fall back to heroBanner if absent
+  thumbnail?: {
+    imageUrl?: string;
+  };
+  heroBanner?: {
+    image?: string;
   };
 
-  category: {
-    _id: string;
-    title: string;
-  };
-
-  createdAt: Date;
+  createdAt: string;
 }
 
-export default function Page(): React.JSX.Element {
-  const [services, setServices] =
-    React.useState<Service[]>([]);
+export default function ServicesPage() {
+  const router = useRouter();
 
-  const [categories, setCategories] =
-    React.useState<Category[]>([]);
+  const [services, setServices] = React.useState<Service[]>([]);
+  const [loading, setLoading] = React.useState(false);
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [total, setTotal] = React.useState(0);
+  const [search, setSearch] = React.useState("");
+  const [deleteId, setDeleteId] = React.useState<string | null>(null);
 
-  const [loading, setLoading] =
-    React.useState<boolean>(true);
+  const [snackbar, setSnackbar] = React.useState({
+    open: false,
+    message: "",
+    severity: "success" as "success" | "error",
+  });
 
-  /* ==============================
-     PAGINATION
-  ============================== */
-
-  const [page, setPage] =
-    React.useState(0);
-
-  const [rowsPerPage, setRowsPerPage] =
-    React.useState(5);
-
-  /* ==============================
-     SEARCH
-  ============================== */
-
-  const [search, setSearch] =
-    React.useState('');
-
-  /* ==============================
-     FETCH SERVICES
-  ============================== */
-
-  const fetchServices =
-    async (): Promise<void> => {
-      try {
-        setLoading(true);
-
-        const response =
-          await getAllServices();
-
-        setServices(
-          response?.data || []
-        );
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-  /* ==============================
-     FETCH CATEGORIES
-  ============================== */
-
-  const fetchCategories =
-    async (): Promise<void> => {
-      try {
-        const response =
-          await getCategories();
-
-        setCategories(
-          response?.categories || []
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  const fetchServices = async () => {
+    try {
+      setLoading(true);
+      const res = await getAllServices(page + 1, rowsPerPage, search);
+      setServices(res.data || []);
+      setTotal(res.pagination?.total || 0);
+    } catch (error: any) {
+      setSnackbar({
+        open: true,
+        message: error.message || "Failed to fetch services",
+        severity: "error",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   React.useEffect(() => {
     fetchServices();
+  }, [page, rowsPerPage]);
 
-    fetchCategories();
-  }, []);
-
-  /* ==============================
-     CREATE SERVICE
-  ============================== */
-
-const handleAdd = async (
-  formData: FormData
-): Promise<void> => {
-  try {
-    await createService(formData);
-
+  const handleSearch = () => {
+    setPage(0);
     fetchServices();
-  } catch (error) {
-    console.log(error);
+  };
 
-    throw error;
-  }
-};
-
-  /* ==============================
-     UPDATE SERVICE
-  ============================== */
-
-const handleUpdate = async (
-  id: string,
-  formData: FormData
-): Promise<void> => {
-  try {
-    await updateService(
-      id,
-      formData
-    );
-
-    fetchServices();
-  } catch (error) {
-    console.log(error);
-
-    throw error;
-  }
-};
-
-  /* ==============================
-     DELETE SERVICE
-  ============================== */
-
-  const handleDelete =
-    async (
-      id: string
-    ): Promise<void> => {
-      try {
-        await deleteService(id);
-
-        fetchServices();
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-  /* ==============================
-     SEARCH FILTER
-  ============================== */
-
-  const filteredServices =
-    services.filter((item) =>
-      item.title
-        ?.toLowerCase()
-        .includes(
-          search.toLowerCase()
-        )
-    );
-
-  /* ==============================
-     PAGINATION
-  ============================== */
-
-  const paginatedServices =
-    filteredServices.slice(
-      page * rowsPerPage,
-      page * rowsPerPage +
-        rowsPerPage
-    );
+  const handleDelete = async () => {
+    try {
+      if (!deleteId) return;
+      await deleteService(deleteId);
+      setSnackbar({
+        open: true,
+        message: "Service deleted successfully",
+        severity: "success",
+      });
+      setDeleteId(null);
+      fetchServices();
+    } catch (error: any) {
+      setSnackbar({
+        open: true,
+        message: error.message || "Failed to delete service",
+        severity: "error",
+      });
+    }
+  };
 
   return (
-    <Stack spacing={3}>
-      {/* TITLE */}
-      <Typography variant="h4">
-        Services
-      </Typography>
-
-      {/* SEARCH */}
-      <TextField
-        fullWidth
-        placeholder="Search service..."
-        value={search}
-        onChange={(
-          e: React.ChangeEvent<HTMLInputElement>
-        ) =>
-          setSearch(
-            e.target.value
-          )
-        }
-      />
-
-      {/* TABLE */}
-      {loading ? (
+    <>
+      <Card sx={{ p: 3 }}>
         <Stack
-          alignItems="center"
-          justifyContent="center"
-          sx={{ py: 10 }}
+          direction={{ xs: "column", md: "row" }}
+          justifyContent="space-between"
+          spacing={2}
+          mb={3}
         >
-          <CircularProgress />
-        </Stack>
-      ) : (
-        <ServicesTable
-          rows={
-            paginatedServices
-          }
-          categories={
-            categories
-          }
-          count={
-            filteredServices.length
-          }
-          page={page}
-          rowsPerPage={
-            rowsPerPage
-          }
-          onPageChange={(
-            _: unknown,
-            newPage: number
-          ) =>
-            setPage(newPage)
-          }
-          onRowsPerPageChange={(
-            event: React.ChangeEvent<HTMLInputElement>
-          ) => {
-            setRowsPerPage(
-              parseInt(
-                event.target.value,
-                10
-              )
-            );
+          <Typography variant="h5">Services</Typography>
 
+          <Button
+            variant="contained"
+            startIcon={<PlusIcon />}
+            onClick={() => router.push("/dashboard/services/add")}
+          >
+            Add Service
+          </Button>
+        </Stack>
+
+        <Stack
+          direction={{ xs: "column", md: "row" }}
+          spacing={2}
+          mb={3}
+        >
+          <TextField
+            fullWidth
+            size="small"
+            placeholder="Search service..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <MagnifyingGlass />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <Button variant="outlined" onClick={handleSearch}>
+            Search
+          </Button>
+        </Stack>
+
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Thumbnail</TableCell>
+                <TableCell>Service Name</TableCell>
+                <TableCell>Slug</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Created</TableCell>
+                <TableCell align="right">Actions</TableCell>
+              </TableRow>
+            </TableHead>
+
+            <TableBody>
+              {loading ? (
+                <TableRow>
+                  <TableCell colSpan={6} align="center">
+                    <CircularProgress />
+                  </TableCell>
+                </TableRow>
+              ) : services.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={6} align="center">
+                    No services found
+                  </TableCell>
+                </TableRow>
+              ) : (
+                services.map((service) => {
+                  // Use thumbnail if available, fall back to hero banner image
+                  const avatarSrc =
+                    service.thumbnail?.imageUrl ||
+                    service.heroBanner?.image ||
+                    undefined;
+
+                  return (
+                    <TableRow key={service._id} hover>
+                      <TableCell>
+                        <Avatar
+                          src={avatarSrc}
+                          variant="rounded"
+                          sx={{ width: 60, height: 60 }}
+                        />
+                      </TableCell>
+
+                      <TableCell>{service.name}</TableCell>
+
+                      <TableCell>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ fontFamily: "monospace" }}
+                        >
+                          {service.slug}
+                        </Typography>
+                      </TableCell>
+
+                      <TableCell>
+                        <Chip
+                          label={service.active ? "Active" : "Inactive"}
+                          color={service.active ? "success" : "error"}
+                          size="small"
+                        />
+                      </TableCell>
+
+                      <TableCell>
+                        {new Date(service.createdAt).toLocaleDateString()}
+                      </TableCell>
+
+                      <TableCell align="right">
+                        <Stack
+                          direction="row"
+                          justifyContent="flex-end"
+                          spacing={1}
+                        >
+                          <IconButton
+                            color="primary"
+                            onClick={() =>
+                              router.push(
+                                `/dashboard/services/view/${service._id}`
+                              )
+                            }
+                          >
+                            <Eye />
+                          </IconButton>
+
+                          <IconButton
+                            color="warning"
+                            onClick={() =>
+                              router.push(
+                                `/dashboard/services/edit/${service._id}`
+                              )
+                            }
+                          >
+                            <PencilSimple />
+                          </IconButton>
+
+                          <IconButton
+                            color="error"
+                            onClick={() => setDeleteId(service._id)}
+                          >
+                            <Trash />
+                          </IconButton>
+                        </Stack>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <TablePagination
+          component="div"
+          count={total}
+          page={page}
+          rowsPerPage={rowsPerPage}
+          onPageChange={(_, newPage) => setPage(newPage)}
+          onRowsPerPageChange={(e) => {
+            setRowsPerPage(Number(e.target.value));
             setPage(0);
           }}
-          onAdd={handleAdd}
-          onUpdate={
-            handleUpdate
-          }
-          onDelete={
-            handleDelete
-          }
         />
-      )}
-    </Stack>
+      </Card>
+
+      {/* Delete Dialog */}
+      <Dialog
+        open={Boolean(deleteId)}
+        onClose={() => setDeleteId(null)}
+      >
+        <DialogTitle>Delete Service</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this service?
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDeleteId(null)}>Cancel</Button>
+          <Button color="error" variant="contained" onClick={handleDelete}>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={3000}
+        onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
+      >
+        <Alert severity={snackbar.severity}>{snackbar.message}</Alert>
+      </Snackbar>
+    </>
   );
 }
