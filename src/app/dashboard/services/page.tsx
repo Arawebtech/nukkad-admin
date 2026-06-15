@@ -523,10 +523,13 @@ export default function ServicesPage() {
     fetchServices();
   }, [page, rowsPerPage]);
 
-  const handleSearch = () => {
-    setPage(0);
+const handleSearch = () => {
+  setPage(0);
+
+  if (page === 0) {
     fetchServices();
-  };
+  }
+};
 
   const handleDelete = async () => {
     try {
