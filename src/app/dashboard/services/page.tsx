@@ -602,6 +602,7 @@ const handleSearch = () => {
               <TableRow>
                 <TableCell>Thumbnail</TableCell>
                 <TableCell>Service Name</TableCell>
+                <TableCell>Service Heading</TableCell>
                 <TableCell>Slug</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Created</TableCell>
@@ -641,6 +642,15 @@ const handleSearch = () => {
                       </TableCell>
 
                       <TableCell>{service.name}</TableCell>
+                        <TableCell>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ fontFamily: "monospace" }}
+                        >
+                          {service.heroBanner?.heading}
+                        </Typography>
+                      </TableCell>
 
                       <TableCell>
                         <Typography

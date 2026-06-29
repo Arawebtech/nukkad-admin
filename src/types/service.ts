@@ -67,6 +67,15 @@ export interface ServiceDocument extends ServiceFormValues {
     imageUrl?: string;
     publicId?: string;
   }
+    backgroundImage?: {
+    imageUrl?: string;
+    publicId?: string;
+  };
+
+  backgroundImageMobile?: {
+    imageUrl?: string;
+    publicId?: string;
+  };
   heroBanner: ServiceFormValues["heroBanner"] & {
     image?: string;
     publicId?: string;
